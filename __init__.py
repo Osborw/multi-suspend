@@ -1,10 +1,15 @@
 from aqt import mw
 from aqt.utils import showInfo, qconnect
 from aqt.qt import *
+from . import dialog
+
+osceDialog = dialog.OsceDialog()
 
 def main():
-    tag = '#AK_Step1_v11::#UWorld::0-99::01'
-    unsuspendCardsByTag(tag)
+    osceDialog.show()
+    # tag = '#AK_Step1_v11::#UWorld::0-99::01'
+    # unsuspendCardsByTag(tag)
+    # showInfo('Completed Successfully! All cards under provided tags are no unsuspended!')
 
 def unsuspendCardsByTag(tag) -> None:
 
@@ -16,5 +21,5 @@ def unsuspendCardsByTag(tag) -> None:
         mw.col.sched.unsuspendCards(ids)
 
 action = QAction("Multi-Unsuspend", mw)
-qconnect(action.triggered, unsuspendCardsByTag)
+qconnect(action.triggered, main)
 mw.form.menuTools.addAction(action)
