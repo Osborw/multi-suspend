@@ -11,9 +11,15 @@ from aqt.qt import *
 def testFunction() -> None:
     # get the number of cards in the current collection, which is stored in
     # the main window
-    cardCount = mw.col.cardCount()
+    ids = mw.col.find_cards("tag:#AK_Step1_v11::#UWorld::0-99::01")
+    print('match length: ', len(ids))
+    if len(ids) == 0:
+        showInfo('sori no matches')
+    else:
+        mw.col.sched.unsuspendCards(ids)
+
     # show a message box
-    showInfo("Card count: %d" % cardCount)
+    # showInfo("Card count: %d" % cardCount)
 
 # create a new menu item, "test"
 action = QAction("test", mw)
