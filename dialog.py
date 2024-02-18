@@ -1,5 +1,7 @@
 from aqt.qt import *
 from aqt.utils import showInfo
+from . import tagLogic
+from . import __init__
 
 class OsceDialog(QDialog):
     def __init__(self):
@@ -21,5 +23,13 @@ class OsceDialog(QDialog):
     def unsuspendCardsByTags(self):
 
         tagsList = self.tags.toPlainText().strip().split('\n')
-        print(tagsList[0], tagsList[-1])
+        errorList = []
+        for tagNumber in tagsList:
+            print(tagNumber)
+            #TODO: Potential errors to catch
+            tag = tagLogic.createFullTag(tagNumber)
+            if tag:
+                #TODO: Potential errors to catch
+                tagLogic.unsuspendCardsByTag(tag)
+
         self.close() 
