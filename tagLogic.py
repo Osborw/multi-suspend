@@ -3,15 +3,16 @@ from aqt.utils import showInfo
 from aqt.qt import *
 
 def createFullTag (tagNumber):
-    tagInt = int(tagNumber)
 
-    #TODO: Add error handling here to catch if its letters
+    try:
+        tagInt = int(tagNumber)
+    except ValueError:
+        raise Exception('Error: ' + tagNumber + ' is not a numbered tag! UWorld tags are numbers.')
 
     tagPrefix = '#AK_Step1_v11::#UWorld::'
 
     if tagInt <= 0:
-        #TODO: Add error handling here to throw if its less than 0
-        print('Error: ' + tagNumber + ' is too low! There are no UWorld tags that go below 1.')
+        raise Exception('Error: ' + tagNumber + ' is too low! There are no UWorld tags that go below 1.')
     elif tagInt > 0 and tagInt < 10:
         #convert single digit to two digit string
         return tagPrefix + '0-99::' + '0' + str(tagInt)
@@ -34,8 +35,7 @@ def createFullTag (tagNumber):
         upperBound = lowerBound + 999
         return tagPrefix + '10000-99999::' + str(lowerBound) + '-' + str(upperBound) + '::' + str(tagInt)
     else:
-        #TODO: Add error handling here to throw if its too high a number
-        print('Error: ' + tagNumber + ' is too high! There are no UWorld tags that go above 99999.')
+        raise Exception('Error: ' + tagNumber + ' is too high! There are no UWorld tags that go above 99999.')
 
 def unsuspendCardsByTag(tag) -> None:
 
@@ -43,7 +43,6 @@ def unsuspendCardsByTag(tag) -> None:
     ids = mw.col.find_cards('tag:' + tag)
 
     if len(ids) == 0:
-        #TODO: throw error that no tag matches, but don't crash and burn
-        showInfo('Found no matches by tag ' + tag + '. Perhaps that tag does not exist or is typed incorrectly.')
+        raise Exception('Found no matches by tag ' + tag + '. Perhaps that tag does not exist or is typed incorrectly.')
     else:
         mw.col.sched.unsuspendCards(ids)
