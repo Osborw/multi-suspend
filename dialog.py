@@ -27,6 +27,7 @@ class OsceDialog(QDialog):
         successList = []
         for tagNumber in tagsList:
             print(tagNumber)
+            tag = None
             try:
                 tag = tagLogic.createFullTag(tagNumber)
             except Exception as err:

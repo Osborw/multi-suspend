@@ -14,9 +14,9 @@ def showErrors (errorList, successList, notFoundList):
         outputString += tag + '\n'
     
     if len(errorList) > 0:
-        outputString += '\nFailed to unsuspend:\n'
+        outputString += '\nFailed to Unsuspend:\n'
     for (tag, err) in errorList:
-        outputString += tag + ' - ' + str(err) + '\n'
+        outputString += '"' + tag + '"' + ' -> ' + str(err) + '\n'
 
     showInfo(outputString.strip())
 

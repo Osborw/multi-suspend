@@ -5,15 +5,18 @@ import math
 
 def createFullTag (tagNumber):
 
+    tagInt = None
     try:
         tagInt = int(tagNumber)
     except ValueError:
-        raise Exception(tagNumber + ' is not a numbered tag! UWorld tags are numbers.')
+        raise Exception('This is not a number. UWorld question IDs are numbers.')
 
     tagPrefix = '#AK_Step1_v11::#UWorld::'
 
-    if tagInt <= 0:
-        raise Exception(tagNumber + ' is too low! UWorld tags do not go below 1.')
+    if tagInt is None:
+        raise Exception('Invalid tag. Tag should be a number.')
+    elif tagInt <= 0:
+        raise Exception('This UWorld ID is too low! UWorld tags do not go below 1.')
     elif tagInt > 0 and tagInt < 10:
         #convert single digit to two digit string
         return tagPrefix + '0-99::' + '0' + str(tagInt)
@@ -36,7 +39,7 @@ def createFullTag (tagNumber):
         upperBound = lowerBound + 999
         return tagPrefix + '10000-99999::' + str(lowerBound) + '-' + str(upperBound) + '::' + str(tagInt)
     else:
-        raise Exception(tagNumber + ' is too high! UWorld tags do not go above 99999.')
+        raise Exception('This UWorld ID is too high! UWorld tags do not go above 99999.')
 
 def unsuspendCardsByTag(tag) -> None:
 
