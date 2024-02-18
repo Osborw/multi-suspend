@@ -8,12 +8,12 @@ def createFullTag (tagNumber):
     try:
         tagInt = int(tagNumber)
     except ValueError:
-        raise Exception('Error: ' + tagNumber + ' is not a numbered tag! UWorld tags are numbers.')
+        raise Exception(tagNumber + ' is not a numbered tag! UWorld tags are numbers.')
 
     tagPrefix = '#AK_Step1_v11::#UWorld::'
 
     if tagInt <= 0:
-        raise Exception('Error: ' + tagNumber + ' is too low! There are no UWorld tags that go below 1.')
+        raise Exception(tagNumber + ' is too low! UWorld tags do not go below 1.')
     elif tagInt > 0 and tagInt < 10:
         #convert single digit to two digit string
         return tagPrefix + '0-99::' + '0' + str(tagInt)
@@ -36,11 +36,10 @@ def createFullTag (tagNumber):
         upperBound = lowerBound + 999
         return tagPrefix + '10000-99999::' + str(lowerBound) + '-' + str(upperBound) + '::' + str(tagInt)
     else:
-        raise Exception('Error: ' + tagNumber + ' is too high! There are no UWorld tags that go above 99999.')
+        raise Exception(tagNumber + ' is too high! UWorld tags do not go above 99999.')
 
 def unsuspendCardsByTag(tag) -> None:
 
-    print('Unsuspending card with tag ' + tag)
     ids = mw.col.find_cards('tag:' + tag)
 
     if len(ids) == 0:

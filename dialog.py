@@ -5,10 +5,10 @@ from . import messaging
 class OsceDialog(QDialog):
     def __init__(self):
         QDialog.__init__(self)
-        self.setWindowTitle("Multi-Unsuspend")
+        self.setWindowTitle("UWorld Batch Unsuspend")
         self.layout = QVBoxLayout()
 
-        label1 = QLabel("Enter tags below. Each tag should be one line")
+        label1 = QLabel("Directions:\nEnter tags below. Each tag should be one line.\n\nPlease give Anki a few seconds to process.")
         self.tags = QPlainTextEdit()
         self.layout.addWidget(label1)
         self.layout.addWidget(self.tags)
@@ -23,21 +23,23 @@ class OsceDialog(QDialog):
 
         tagsList = self.tags.toPlainText().strip().split('\n')
         errorList = []
+        notFoundList = []
+        successList = []
         for tagNumber in tagsList:
             print(tagNumber)
-            #TODO: Potential errors to catch
             try:
                 tag = tagLogic.createFullTag(tagNumber)
             except Exception as err:
-                errorList.append(err)
+                errorList.append((tagNumber, err))
             if tag:
                 try:
                     tagLogic.unsuspendCardsByTag(tag)
+                    successList.append(tagNumber)
                 except Exception as err:
-                    errorList.append(err)
+                    notFoundList.append((tagNumber, err))
 
         self.close() 
-        if len(errorList) > 0:
-            messaging.showErrors(errorList)
+        if len(errorList) > 0 or len(notFoundList) > 0:
+            messaging.showErrors(errorList, successList, notFoundList)
         else:
             messaging.showSuccess()
