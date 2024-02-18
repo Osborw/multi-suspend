@@ -21,4 +21,4 @@ And if you're inclined to do so, feel free to create any new PRs with changes an
 
 ## Thanks :)
 
-If you found this helpful, I'd appreciate a quick rating on AnkiWeb or a Star on Github.
+If you found this helpful, I'd appreciate a quick rating on AnkiWeb or Star this repo on Github.
