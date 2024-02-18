@@ -1,6 +1,7 @@
 from aqt import mw
 from aqt.utils import showInfo
 from aqt.qt import *
+import math
 
 def createFullTag (tagNumber):
 
@@ -21,17 +22,17 @@ def createFullTag (tagNumber):
         return tagPrefix + '0-99::' + str(tagInt)
     elif tagInt >= 100 and tagInt <= 999:
         #add to 100-999 tag
-        lowerBound = round(tagInt, -2)
+        lowerBound = math.floor(tagInt/100) * 100
         upperBound = lowerBound + 99
         return tagPrefix + '100-999::' + str(lowerBound) + '-' + str(upperBound) + '::' + str(tagInt)
     elif tagInt >= 1000 and tagInt <= 9999:
         #add to 1000 - 9999 tag
-        lowerBound = round(tagInt, -3)
+        lowerBound = math.floor(tagInt/1000) * 1000
         upperBound = lowerBound + 999
         return tagPrefix + '1000-9999::' + str(lowerBound) + '-' + str(upperBound) + '::' + str(tagInt)
     elif tagInt >= 10000 and tagInt <= 99999:
         #add to 10000 - 99999 tag
-        lowerBound = round(tagInt, -3)
+        lowerBound = math.floor(tagInt/1000) * 1000
         upperBound = lowerBound + 999
         return tagPrefix + '10000-99999::' + str(lowerBound) + '-' + str(upperBound) + '::' + str(tagInt)
     else:
