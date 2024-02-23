@@ -39,6 +39,7 @@ class OsceDialog(QDialog):
                 except Exception as err:
                     notFoundList.append((tagNumber, err))
 
+        self.tags.clear()
         self.close() 
         if len(errorList) > 0 or len(notFoundList) > 0:
             messaging.showErrors(errorList, successList, notFoundList)
