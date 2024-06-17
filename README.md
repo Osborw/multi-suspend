@@ -2,7 +2,7 @@
 Anki add-on to unsuspend multiple cards at once based on UWorld question ID for v11 and v12 of Step 1 Step 2 anki cards. <br>
 Direct link to this add-on can be found [here](https://ankiweb.net/shared/info/899971795).
 
-![uworld_anki_1](https://github.com/Osborw/uworld-batch-unsuspend/assets/32249906/f8ae1425-0aeb-4e14-9d41-7b1f83baafe2)
+![uworld-batch-unsuspend-v1 1](https://github.com/Osborw/uworld-batch-unsuspend/assets/32249906/f35ad73d-37b8-414f-ab79-eaebae6f3413)
 
 ## Usage
 [Anki](https://apps.ankiweb.net/) is an intelligent flashcard program frequently used by medical students. <br>
