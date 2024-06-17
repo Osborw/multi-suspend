@@ -6,11 +6,18 @@ import math
 tagPrefixDict = {
     'Step_1_v11': '#AK_Step1_v11::#UWorld::',
     'Step_2_v11': '#AK_Step2_v11::#UWorld::',
-    # 'Step_1_v12': '#AK_Step1_v12::#UWorld::',
-    # 'Step_2_v12': '#AK_Step2_v12::#UWorld::',
+    'Step_1_v12': '#AK_Step1_v12::#UWorld::',
+    'Step_2_v12': '#AK_Step2_v12::#UWorld::',
 }
 
 def createFullTag (tagNumber, stepVersion):
+
+    if 'v12' in stepVersion:
+        return createFullTagV12(tagNumber, stepVersion)
+    else:
+        return createFullTagV11(tagNumber, stepVersion)
+
+def createFullTagV11 (tagNumber, stepVersion):
 
     tagInt = None
     try:
@@ -48,8 +55,25 @@ def createFullTag (tagNumber, stepVersion):
     else:
         raise Exception('This UWorld ID is too high! UWorld tags do not go above 99999.')
 
+def createFullTagV12 (tagNumber, stepVersion):
+
+    tagInt = None
+    try:
+        tagInt = int(tagNumber)
+    except ValueError:
+        raise Exception('This is not a number. UWorld question IDs are numbers.')
+
+    tagPrefix = tagPrefixDict[stepVersion] 
+
+    if tagInt is None:
+        raise Exception('Invalid tag. Tag should be a number.') 
+
+    return tagPrefix + str(tagInt)
+
+
 def unsuspendCardsByTag(tag) -> None:
 
+    print(tag)
     ids = mw.col.find_cards('tag:' + tag)
 
     if len(ids) == 0:
