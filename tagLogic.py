@@ -3,7 +3,14 @@ from aqt.utils import showInfo
 from aqt.qt import *
 import math
 
-def createFullTag (tagNumber):
+tagPrefixDict = {
+    'Step_1_v11': '#AK_Step1_v11::#UWorld::',
+    'Step_2_v11': '#AK_Step2_v11::#UWorld::',
+    # 'Step_1_v12': '#AK_Step1_v12::#UWorld::',
+    # 'Step_2_v12': '#AK_Step2_v12::#UWorld::',
+}
+
+def createFullTag (tagNumber, stepVersion):
 
     tagInt = None
     try:
@@ -11,7 +18,7 @@ def createFullTag (tagNumber):
     except ValueError:
         raise Exception('This is not a number. UWorld question IDs are numbers.')
 
-    tagPrefix = '#AK_Step1_v11::#UWorld::'
+    tagPrefix = tagPrefixDict[stepVersion] 
 
     if tagInt is None:
         raise Exception('Invalid tag. Tag should be a number.')
@@ -49,3 +56,28 @@ def unsuspendCardsByTag(tag) -> None:
         raise Exception('Found no matches by tag ' + tag + '. Perhaps that tag does not exist or is typed incorrectly.')
     else:
         mw.col.sched.unsuspendCards(ids)
+
+def loadLastUsedTagPrefix() -> str:
+
+    config = mw.addonManager.getConfig(__name__)
+    lastUsedTagPrefix = config['lastUsedTagPrefix']
+
+    return lastUsedTagPrefix
+
+def saveLastUsedTagPrefix(tagPrefix) -> None:
+
+    newConfig = {
+        'lastUsedTagPrefix': tagPrefix
+    } 
+
+    mw.addonManager.writeConfig(__name__, newConfig)
+
+def getLastUsedTagPrefixIndex() -> int:
+
+    lastUsedTagPrefix = loadLastUsedTagPrefix()
+
+    tagPrefixes = list(tagPrefixDict.keys())
+    if not lastUsedTagPrefix in tagPrefixes:
+        return 0
+    else:
+        return tagPrefixes.index(lastUsedTagPrefix)
