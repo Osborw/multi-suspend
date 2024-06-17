@@ -52,8 +52,11 @@ def createFullTagV11 (tagNumber, stepVersion):
         lowerBound = math.floor(tagInt/1000) * 1000
         upperBound = lowerBound + 999
         return tagPrefix + '10000-99999::' + str(lowerBound) + '-' + str(upperBound) + '::' + str(tagInt)
+    elif tagInt <= 106510:
+        #v11 has 5 tags that are 100,000+, but go no higher than 106,510.
+        return tagPrefix + '10000-99999::22000+::' + str(tagInt)
     else:
-        raise Exception('This UWorld ID is too high! UWorld tags do not go above 99999.')
+        raise Exception('This UWorld ID is too high! UWorld tags for v11 do not go above 106510.')
 
 def createFullTagV12 (tagNumber, stepVersion):
 
