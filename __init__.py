@@ -8,6 +8,6 @@ osceDialog = dialog.OsceDialog()
 def main():
     osceDialog.show()
 
-action = QAction("UWorld Batch Unsuspend", mw)
+action = QAction("-Test- UWorld Batch Unsuspend", mw)
 qconnect(action.triggered, main)
 mw.form.menuTools.addAction(action)

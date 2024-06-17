@@ -8,9 +8,17 @@ class OsceDialog(QDialog):
         self.setWindowTitle("UWorld Batch Unsuspend")
         self.layout = QVBoxLayout()
 
-        label1 = QLabel("Directions:\nEnter tags below. Each tag should be one line.\n\nPlease give Anki a few seconds to process.")
-        self.tags = QPlainTextEdit()
+        label1 = QLabel("Directions:\nEnter tags below. Each tag should be one line.\n\nPlease give Anki a few seconds to process.\n")
         self.layout.addWidget(label1)
+
+        label2 = QLabel("Choose which version of cards you will be unsuspending.")
+        self.layout.addWidget(label2)
+        self.stepVersion = QComboBox() 
+        self.stepVersion.insertItems(0, list(tagLogic.tagPrefixDict.keys()))
+        self.stepVersion.setCurrentIndex(tagLogic.getLastUsedTagPrefixIndex())
+        self.layout.addWidget(self.stepVersion)
+
+        self.tags = QPlainTextEdit()
         self.layout.addWidget(self.tags)
 
         self.button = QPushButton("Unsuspend")
@@ -22,14 +30,17 @@ class OsceDialog(QDialog):
     def unsuspendCardsByTags(self):
 
         tagsList = self.tags.toPlainText().strip().split('\n')
+        tagsVersion = self.stepVersion.currentText()
         errorList = []
         notFoundList = []
         successList = []
+
+        tagLogic.saveLastUsedTagPrefix(tagsVersion)
         for tagNumber in tagsList:
             print(tagNumber)
             tag = None
             try:
-                tag = tagLogic.createFullTag(tagNumber)
+                tag = tagLogic.createFullTag(tagNumber, tagsVersion)
             except Exception as err:
                 errorList.append((tagNumber, err))
             if tag:
