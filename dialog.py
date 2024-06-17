@@ -8,7 +8,7 @@ class OsceDialog(QDialog):
         self.setWindowTitle("UWorld Batch Unsuspend")
         self.layout = QVBoxLayout()
 
-        label1 = QLabel("Directions:\nEnter tags below. Each tag should be one line.\n\nPlease give Anki a few seconds to process.\n")
+        label1 = QLabel("Directions:\nUnsuspend multiple cards by entering their numbers below.\nNumbers should be on separate lines or comma separated.\nWhitespaces are removed.\n")
         self.layout.addWidget(label1)
 
         label2 = QLabel("Choose which version of cards you will be unsuspending.")
@@ -29,7 +29,7 @@ class OsceDialog(QDialog):
 
     def unsuspendCardsByTags(self):
 
-        tagsList = self.tags.toPlainText().strip().split('\n')
+        tagsList = getTagsFromText(self.tags.toPlainText())
         tagsVersion = self.stepVersion.currentText()
         errorList = []
         notFoundList = []
@@ -56,3 +56,10 @@ class OsceDialog(QDialog):
             messaging.showErrors(errorList, successList, notFoundList)
         else:
             messaging.showSuccess()
+
+def getTagsFromText(text: str) -> list[str]:
+    '''
+    Should accept strings that delimit by newline (\n) or comma (,).
+    Also makes sure to remove any whitespaces in between.
+    '''
+    return text.strip().replace('\n', ',').replace(' ', '').split(',')

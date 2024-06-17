@@ -1,5 +1,5 @@
 # UWorld Batch Unsuspend
-Anki add-on to suspend multiple cards at once based on UWorld question ID. <br>
+Anki add-on to unsuspend multiple cards at once based on UWorld question ID for Step 1 v11 and Step 2 v11. <br>
 Direct link to this add-on can be found [here](https://ankiweb.net/shared/info/899971795).
 
 ![uworld_anki_1](https://github.com/Osborw/uworld-batch-unsuspend/assets/32249906/f8ae1425-0aeb-4e14-9d41-7b1f83baafe2)
@@ -21,4 +21,4 @@ And if you're inclined to do so, feel free to create any new PRs with changes an
 
 ## Thanks :)
 
-If you found this helpful, I'd appreciate a quick rating on AnkiWeb or Star this repo on Github.
+If you found this helpful, I'd appreciate a rating on AnkiWeb or Star this repo on Github. It goes a long way!
