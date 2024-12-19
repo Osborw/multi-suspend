@@ -57,7 +57,7 @@ class OsceDialog(QDialog):
         else:
             messaging.showSuccess()
 
-def getTagsFromText(text: str) -> list[str]:
+def getTagsFromText(text: str):
     '''
     Should accept strings that delimit by newline (\n) or comma (,).
     Also makes sure to remove any whitespaces in between.
