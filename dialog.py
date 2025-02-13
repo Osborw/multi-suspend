@@ -53,7 +53,8 @@ class OsceDialog(QDialog):
         self.tags.clear()
         self.close() 
         if len(errorList) > 0 or len(notFoundList) > 0:
-            messaging.showErrors(errorList, successList, notFoundList)
+            resultsMessage = messaging.PostRunMessaging(errorList, successList, notFoundList)
+            resultsMessage.show()
         else:
             messaging.showSuccess()
 
