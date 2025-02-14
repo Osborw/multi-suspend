@@ -7,15 +7,12 @@ class PostRunMessaging(QDialog):
     def __init__(self, errorList, successList, notFoundList):
         QDialog.__init__(self)
         self.setWindowTitle("Results")
-        self.setMaximumHeight(3000)
         self.setFixedWidth(550)
         self.layout = QVBoxLayout()
 
         scroll = QScrollArea(self)
         self.layout.addWidget(scroll)
         scroll.setWidgetResizable(True)
-        scroll.adjustSize()
-        QSizePolicy()
         scrollContent = QWidget(scroll)
 
         scrollLayout = QVBoxLayout(scrollContent)
@@ -23,11 +20,9 @@ class PostRunMessaging(QDialog):
         scroll.setWidget(scrollContent)
 
         outputString = ''
-
+        
         if len(successList) > 0:
-            outputString += 'Successfully Unsuspended:\n'
-        for tag in successList:
-            outputString += tag + '\n' 
+            outputString += str(len(successList)) + ' card(s) successfully unsuspended\n'
 
         if len(notFoundList) > 0:
             outputString += '\nTags Not Found:\n'
@@ -41,7 +36,7 @@ class PostRunMessaging(QDialog):
 
         finalString = outputString.strip()
         label1 = QLabel(finalString)
-        scroll.setWidget(label1)
+        scrollLayout.addWidget(label1)
 
         self.setLayout(self.layout)
 
